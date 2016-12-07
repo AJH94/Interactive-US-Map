@@ -1,37 +1,15 @@
 var http = require('http')
   , fs   = require('fs')
   , url  = require('url')
-  , port = 8080;
+  , port = 8080
+  , express = require('express')
+  , app = express();
 
-var server = http.createServer (function (req, res) {
-  var uri = url.parse(req.url)
+app.use(express.static('public'));
 
-  switch( uri.pathname ) {
-    case '/':
-      sendFile(res, 'index.html')
-      break
-    case '/index.html':
-      sendFile(res, 'index.html')
-      break
-    case '/style.css':
-      sendFile(res, 'style.css', 'text/css')
-      break
-    case '/js/scripts.js':
-      sendFile(res, 'scripts.js', 'text/javascript')
-      break
-    case '/US_Map.png':
-      sendFile(res, 'US_Map.png', 'image/png')
-      break
-    case '/README.md':
-      sendFile(res, 'README.md', 'text/MD')
-      break
-    default:
-      res.end('404 not found')
-  }
+app.listen(process.env.PORT || port, function () {
+          console.log('Example app listening on port 8080!')
 })
-
-server.listen(process.env.PORT || port);
-console.log('listening on 8080')
 
 // subroutines
 
