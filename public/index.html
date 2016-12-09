@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 1</title>
@@ -10,29 +11,59 @@
     <div id="country">
         
         <div id="city">
-            <svg width="1000" height="600">
-                <circle cx="40" cy="90" r="10"></circle>
-                <circle cx="80" cy="90" r="10"></circle>
-                <circle cx="120" cy="90" r="10"></circle>
-            </svg>
+            <svg width="960" height="500">
+                <circle cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
+                <circle cx="618.6180697107831" cy="164.5951930014994" r="10"></circle>
+                <circle cx="460.3202984929121" cy="383.1403249363311" r="10"></circle>
 
+                <path d="M 894.5904298167112 105.48290513422194
+                        L 618.6180697107831 164.5951930014994
+                        L 460.3202984929121 383.1403249363311"
+                        stroke="red" stroke-width="2" fill="none" />
+                <circle cx="30" cy="300" r="0"></circle>
+            </svg>
+            <script src="https://d3js.org/d3.v3.min.js"></script>
+
+            <script>
+
+                var svg = d3.select("svg");
+
+                var circle = svg.selectAll("circle")
+                    .data([32, 57, 112, 293]);
+
+                circle.enter().append("circle")
+                .attr("cy", 60)
+                .attr("cx", function(d, i) { return i * 100 + 30; })
+                .attr("r", function(d) { return Math.sqrt(d); });
+
+                var albersProjection = d3.geo.albersUsa()
+                .scale(1325)
+                .translate([930/2, 490/2]);
+                var proj = albersProjection([-71.057, 42.313]);
+                console.log(proj);
+
+                var proj2 = albersProjection([-87.6298, 41.8781]);
+                console.log(proj2);
+
+                var proj3 = albersProjection([-96.7970, 32.7767]);
+                console.log(proj3); 
+
+
+        </script>
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script>
+    <!--<script>
 
         var svg = d3.select("svg");
 
         var circle = svg.selectAll("circle")
-            .data([[155,920,"boston"]], function(d) { return d; });
+            .data([32, 57, 293], function(d) { return d; });
 
         circle.enter().append("circle")
-            .attr("cy", function(d) { return d[0]; })
-            .attr("cx", function(d) { return d[1]; })
-            .attr("r", 5)
-            .attr("id", function(d) { return d[2]; });
+            .attr("cy", 60)
+            .attr("cx", function(d, i) { return i * 100 + 30; })
+            .attr("r", function(d) { return Math.sqrt(d); });
 
-        circle.exit().remove();
-
-    </script>
+    </script>-->
   </body>
 </html>
