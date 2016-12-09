@@ -23,15 +23,24 @@
         var svg = d3.select("svg");
 
         var circle = svg.selectAll("circle")
-            .data([[155,920,"boston"]], function(d) { return d; });
+            .data([[155,920,"boston"],[200, 880, "nyc"],[255, 836, "dc"],[225, 860, "philadelphia"],[213, 640, "chicago"],[490, 520, "houston"],[345, 85, "la"],[270, 37, "sf"],[150, 540, "minneapolis"],[265, 350, "denver"],[35, 100, "seattle"],[430, 490, "dallas"]], function(d) { return d; });
 
         circle.enter().append("circle")
             .attr("cy", function(d) { return d[0]; })
             .attr("cx", function(d) { return d[1]; })
             .attr("r", 5)
-            .attr("id", function(d) { return d[2]; });
+            .attr("id", function(d) { return d[2]; })
+            .attr("fill", "blue")
+            .on("click", clicked);
 
         circle.exit().remove();
+
+        function clicked(d) {
+
+            var c = d3.select(this);
+            c.attr("fill", "yellow");
+
+        }
 
     </script>
   </body>
