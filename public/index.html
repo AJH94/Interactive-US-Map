@@ -7,9 +7,8 @@
   </head>
   <body>
     <h1>Interactive US Map</h1>
-    <h2>Team: Alexander Huot, Khoi Doan, Andrew Petit</h2> 
+    <h2>Team: Alexander Huot, Khoi Doan, Andrew Petit</h2>
     <div id="country">
-        
         <div id="city">
             <svg width="960" height="500">
                 <circle cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
@@ -25,8 +24,14 @@
                 <circle id="az" cx="169.16160725691094" cy="341.585707740727" r="10"></circle>
                 <circle id="philly" cx="838.7890402686346" cy="175.8370480134363" r="10"></circle>
             </svg>
+        </div>
+    </div>
+    <div id = "displayInfo" hidden></div>
+  </body>
+  <!-- Latest compiled and minified JavaScript -->
             <script src="https://d3js.org/d3.v3.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
             <script src="bosny.js"></script>
             <script src="nypa.js"></script>
             <script src="nydc.js"></script>
@@ -122,6 +127,9 @@
                 var objects = [];
                 function clicked(d) {
                     if (bool){
+                        var div = document.getElementById("displayInfo");
+                        div.innerHTML = "";
+                        div.hidden = true;
                         d3.select("path").remove();
                         for (var k = 0; k < objects.length; k++){
                             var e = d3.select(objects[k]);
@@ -428,9 +436,19 @@
 
 
                     //add all routes to the svg container
-                    var lineStringPath1 = svg.append("path").attr("d", geoPath(line)).style("stroke", "red").style("fill", "none");
+                    var lineStringPath1 = svg.append("path").attr("d", geoPath(line)).style("stroke", "red").style("fill", "none").on("click", lineSelected);
+                }
+                /**TODO - need to add what happens when a line is pressed */
+
+                function lineSelected(d){
+                    var c = d3.select(this);
+                    console.log("the line was selected");
+
+                    var div = document.getElementById("displayInfo");
+                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Cities:" + pressedCities[0] + ", " + pressedCities[1] + "</li></ul>";
+                    div.hidden = false;
+
+                    
                 }
         </script>
-    </div>
-  </body>
 </html>

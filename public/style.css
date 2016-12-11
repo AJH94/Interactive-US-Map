@@ -3,3 +3,5 @@
 #city {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center;}
 
 #boston {fill: red;}
+
+#displayInfo {display:table; margin: auto;}
