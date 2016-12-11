@@ -109,26 +109,26 @@
                     .attr("r", 5)
                     .attr("fill", "blue")
                     .on("click", clicked);
+
                     cities[j].exit().remove();
                 }
 
                 var bool = false;
+                var objects = [];
                 function clicked(d) {
                     if (bool){
                         d3.select("path").remove();
-                        for (var j = 0; j < cities.length; j++){
-                            cities[j].enter().append("circle")
-                            .attr("cy", function(d) { return d[1]; })
-                            .attr("cx", function(d) { return d[0]; })
-                            .attr("r", 5)
-                            .attr("fill", "blue")
-                            .on("click", clicked);
-                            cities[j].exit().remove();
+                        for (var k = 0; k < objects.length; k++){
+                            var e = d3.select(objects[k]);
+                            e.attr("fill", "blue");
                         }
+                    
+                        bool = false;
                         console.log(multipointLine.coordinates);
                         multipointLine.coordinates = [];
                         pressedCities = [];
                     }
+                    objects.push(this);
                     var c = d3.select(this);
                     console.log(this.cx.animVal.value);
                     var value = this.cx.animVal.value;
