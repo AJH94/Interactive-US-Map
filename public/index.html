@@ -12,20 +12,21 @@
         
         <div id="city">
             <svg width="960" height="500">
-                <circle id= "boston" cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
-                <circle cx="618.6180697107831" cy="164.5951930014994" r="10"></circle>
-                <circle cx="460.3202984929121" cy="383.1403249363311" r="10"></circle>
-                <circle cx="854.5708175202567" cy="154.02359484534668" r="10"></circle>
-                <circle cx="56.60659487711308" cy="304.2365506359156" r="10"></circle>
-                <circle cx="488.3685957613856" cy="453.15863250624943" r="10"></circle>
-                <circle cx="520.3973525968821" cy="98.23279437830399" r="10"></circle>
-                <circle cx="317.56354129724684" cy="213.28621034875107" r="10"></circle>
-                <circle cx="811.4657161514506" cy="206.59056765014157" r="10"></circle>
-                <circle cx="696.8407306951635" cy="347.0457561301166" r="10"></circle>
-                <circle cx="169.16160725691094" cy="341.585707740727" r="10"></circle>
-                <circle cx="838.7890402686346" cy="175.8370480134363" r="10"></circle>
+                <circle cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
+                <circle id="chicago" cx="618.6180697107831" cy="164.5951930014994" r="10"></circle>
+                <circle id="dallas" cx="460.3202984929121" cy="383.1403249363311" r="10"></circle>
+                <circle id="newYork" cx="854.5708175202567" cy="154.02359484534668" r="10"></circle>
+                <circle id="la" cx="56.60659487711308" cy="304.2365506359156" r="10"></circle>
+                <circle id="houston" cx="488.3685957613856" cy="453.15863250624943" r="10"></circle>
+                <circle id="min" cx="520.3973525968821" cy="98.23279437830399" r="10"></circle>
+                <circle id="denver" cx="317.56354129724684" cy="213.28621034875107" r="10"></circle>
+                <circle id="dc" cx="811.4657161514506" cy="206.59056765014157" r="10"></circle>
+                <circle id="atlanta" cx="696.8407306951635" cy="347.0457561301166" r="10"></circle>
+                <circle id="az" cx="169.16160725691094" cy="341.585707740727" r="10"></circle>
+                <circle id="philly" cx="838.7890402686346" cy="175.8370480134363" r="10"></circle>
             </svg>
             <script src="https://d3js.org/d3.v3.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
             <script src="bosny.js"></script>
             <script src="nypa.js"></script>
             <script src="nydc.js"></script>
@@ -56,8 +57,9 @@
                 //contains all the routes to and from cities
                 var multipointLine = {
                     "type" : "MultiLineString",
-                    "coordinates" : [bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]
+                    "coordinates" : []/*[bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]*/
                 }
+                var pressedCities = [];
                 var svg = d3.select("svg");
                 var array = [[894.5904298167112,105.48290513422194],[618.6180697107831,164.5951930014994],[460.3202984929121,383.1403249363311],[854.5708175202567,154.02359484534668], [56.60659487711308,304.2365506359156],[488.3685957613856,453.15863250624943],[520.3973525968821,98.23279437830399],[317.56354129724684,213.28621034875107],[811.4657161514506,206.59056765014157],[696.8407306951635,347.0457561301166],[169.16160725691094,341.585707740727],[838.7890402686346,175.8370480134363 ]];
                 var length = array.length;
@@ -65,7 +67,7 @@
                 
                 //add events to each of the cities  
                 var boston = svg.selectAll("circle")
-                .data([[array[0][0],array[0][1]]], function(d) { return d; })
+                .data([[array[0][0], array[0][1], "boston"]], function(d) { return d; })
                 var chicago = svg.selectAll("circle")
                 .data([[array[1][0], array[1][1]]], function(d) {
                     return d; }) 
@@ -110,26 +112,104 @@
                     cities[j].exit().remove();
                 }
 
+                var bool = false;
                 function clicked(d) {
+                    if (bool){
+                        d3.select("path").remove();
+                        for (var j = 0; j < cities.length; j++){
+                            cities[j].enter().append("circle")
+                            .attr("cy", function(d) { return d[1]; })
+                            .attr("cx", function(d) { return d[0]; })
+                            .attr("r", 5)
+                            .attr("fill", "blue")
+                            .on("click", clicked);
+                            cities[j].exit().remove();
+                        }
+                        console.log(multipointLine.coordinates);
+                        multipointLine.coordinates = [];
+                        pressedCities = [];
+                    }
                     var c = d3.select(this);
+                    console.log(this.cx.animVal.value);
+                    var value = this.cx.animVal.value;
+                    addCityToList(value);
+                    if(pressedCities.length == 2){
+                        pressedTwoCities();
+                    }
                     c.attr("fill", "yellow");
                 }
 
-                //create a scale and tanslation for the map
-                var albersProjection = d3.geo.albersUsa()
-                .scale(1325)
-                .translate([930/2, 490/2]);
+                function addCityToList(value){
+                    switch (value){
+                        case 894.5904541015625:
+                            pressedCities.push("boston");
+                            break;
+                        case 618.6180419921875:
+                            pressedCities.push("chicago");
+                            break;
+                        case 460.3203125:
+                            pressedCities.push("dallas");
+                            break;
+                        case 854.57080078125:
+                            pressedCities.push("newyork");
+                            break;
+                        case 56.60659408569336:
+                            pressedCities.push("la");
+                            break;
+                        case 488.36859130859375:
+                            pressedCities.push("houston");
+                            break;
+                        case 520.3973388671875:
+                            pressedCities.push("min");
+                            break;
+                        case 317.56353759765625:
+                            pressedCities.push("denver");
+                            break;
+                        case 811.4656982421875:
+                            pressedCities.push("dc");
+                            break;
+                        case 696.8407592773438:
+                            pressedCities.push("atlanta");
+                            break;
+                        case 169.16160583496094:
+                            pressedCities.push("az");
+                            break;
+                        case 838.7890625:
+                            pressedCities.push("philly");
+                            break;
+                        default:
+                            console.log("problem");
+                        }
+                }
 
-                //allows for easy pasting of routes to the svg container
-                 var geoPath = d3.geo.path().projection(albersProjection);
+                function pressedTwoCities(){
+                    if (pressedCities.includes("boston") && pressedCities.includes("newyork")){
+                        multipointLine.coordinates.push(bostonNewYork);
+                    } 
+                    if (pressedCities.includes("chicago") && pressedCities.includes("newyork")){
+                        multipointLine.coordinates.push(newChi);
+                    }
+                    console.log(multipointLine.coordinates);
+                    projection(multipointLine);
+
+                    bool = true;
+                
+                }
+
+                function projection(line){
+                    //create a scale and tanslation for the map
+                    var albersProjection = d3.geo.albersUsa()
+                    .scale(1325)
+                    .translate([930/2, 490/2]);
+
+                    //allows for easy pasting of routes to the svg container
+                    var geoPath = d3.geo.path().projection(albersProjection);
 
 
-                //add all routes to the svg container
-                 var lineStringPath1 = svg.append("path").attr("d", geoPath(multipointLine)).style("stroke", "red").style("fill", "none");
-
+                    //add all routes to the svg container
+                    var lineStringPath1 = svg.append("path").attr("d", geoPath(line)).style("stroke", "red").style("fill", "none");
+                }
         </script>
     </div>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-
   </body>
 </html>
