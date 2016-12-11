@@ -12,7 +12,7 @@
         
         <div id="city">
             <svg width="960" height="500">
-                <circle cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
+                <circle id= "boston" cx="894.5904298167112" cy="105.48290513422194" r="10"></circle>
                 <circle cx="618.6180697107831" cy="164.5951930014994" r="10"></circle>
                 <circle cx="460.3202984929121" cy="383.1403249363311" r="10"></circle>
                 <circle cx="854.5708175202567" cy="154.02359484534668" r="10"></circle>
@@ -24,10 +24,8 @@
                 <circle cx="696.8407306951635" cy="347.0457561301166" r="10"></circle>
                 <circle cx="169.16160725691094" cy="341.585707740727" r="10"></circle>
                 <circle cx="838.7890402686346" cy="175.8370480134363" r="10"></circle>
-                <circle cx="30" cy="300" r="0"></circle>
             </svg>
             <script src="https://d3js.org/d3.v3.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
             <script src="bosny.js"></script>
             <script src="nypa.js"></script>
             <script src="nydc.js"></script>
@@ -61,14 +59,61 @@
                     "coordinates" : [bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]
                 }
                 var svg = d3.select("svg");
+                var array = [[894.5904298167112,105.48290513422194],[618.6180697107831,164.5951930014994],[460.3202984929121,383.1403249363311],[854.5708175202567,154.02359484534668], [56.60659487711308,304.2365506359156],[488.3685957613856,453.15863250624943],[520.3973525968821,98.23279437830399],[317.56354129724684,213.28621034875107],[811.4657161514506,206.59056765014157],[696.8407306951635,347.0457561301166],[169.16160725691094,341.585707740727],[838.7890402686346,175.8370480134363 ]];
+                var length = array.length;
+                console.log(length);
+                
+                //add events to each of the cities  
+                var boston = svg.selectAll("circle")
+                .data([[array[0][0],array[0][1]]], function(d) { return d; })
+                var chicago = svg.selectAll("circle")
+                .data([[array[1][0], array[1][1]]], function(d) {
+                    return d; }) 
+                var dallas = svg.selectAll("circle")
+                .data([[array[2][0], array[2][1]]], function(d){
+                    return d;})
+                var newYork = svg.selectAll("circle")
+                .data([[array[3][0], array[3][1]]], function(d){
+                    return d;})
+                var la = svg.selectAll("circle")
+                .data([[array[4][0], array[4][1]]], function(d){
+                    return d;})
+                var houston = svg.selectAll("circle")
+                .data([[array[5][0], array[5][1]]], function(d){
+                    return d;})
+                var min = svg.selectAll("circle")
+                .data([[array[6][0], array[6][1]]], function(d){
+                    return d;})
+                var denver = svg.selectAll("circle")
+                .data([[array[7][0], array[7][1]]], function(d){
+                    return d;})
+                var dc = svg.selectAll("circle")
+                .data([[array[8][0], array[8][1]]], function(d){
+                    return d;})
+                var atlanta = svg.selectAll("circle")
+                .data([[array[9][0], array[9][1]]], function(d){
+                    return d;})
+                var az = svg.selectAll("circle")
+                .data([[array[10][0], array[10][1]]], function(d){
+                    return d;})
+                var philly = svg.selectAll("circle")
+                .data([[array[11][0], array[11][1]]], function(d){
+                    return d;})
+                var cities = [boston, chicago, dallas, newYork, la, houston, min, denver, dc, atlanta, az, philly];
+                for (var j = 0; j < cities.length; j++){
+                    cities[j].enter().append("circle")
+                    .attr("cy", function(d) { return d[1]; })
+                    .attr("cx", function(d) { return d[0]; })
+                    .attr("r", 5)
+                    .attr("fill", "blue")
+                    .on("click", clicked);
+                    cities[j].exit().remove();
+                }
 
-                var circle = svg.selectAll("circle")
-                    .data([32, 57, 112, 293]);
-
-                circle.enter().append("circle")
-                .attr("cy", 60)
-                .attr("cx", function(d, i) { return i * 100 + 30; })
-                .attr("r", function(d) { return Math.sqrt(d); });
+                function clicked(d) {
+                    var c = d3.select(this);
+                    c.attr("fill", "yellow");
+                }
 
                 //create a scale and tanslation for the map
                 var albersProjection = d3.geo.albersUsa()
