@@ -189,6 +189,69 @@
                     if (pressedCities.includes("chicago") && pressedCities.includes("newyork")){
                         multipointLine.coordinates.push(newChi);
                     }
+                    if (pressedCities.includes("chicago") &&
+                        pressedCities.includes("boston")){
+                        multipointLine.coordinates.push(bosChi);
+                    }
+                    if (pressedCities.includes("boston") && pressedCities.includes("dc")){
+                        multipointLine.coordinates.push(bostonNewYork);
+                        multipointLine.coordinates.push(newDc);
+                    }
+                    if (pressedCities.includes("newyork") && pressedCities.includes("philly")){
+                        multipointLine.coordinates.push(newPa);
+                    }
+                    if (pressedCities.includes("newyork") &&
+                        pressedCities.includes("dc")){
+                        multipointLine.coordinates.push(newDc);
+                    }
+                    if (pressedCities.includes("philly") && pressedCities.includes("chicago")){
+                        multipointLine.coordinates.push(paChi);
+                    }
+                    if (pressedCities.includes("dc") && pressedCities.includes("chicago")){
+                        multipointLine.coordinates.push(dcChi);
+                    }
+                    if (pressedCities.includes("dc") && pressedCities.includes("atlanta")){
+                        multipointLine.coordinates.push(wasAt);
+                    }
+                    if (pressedCities.includes("boston") && pressedCities.includes("philly")){
+                        multipointLine.coordinates.push(bostonNewYork);
+                        multipointLine.coordinates.push(newPa);
+                    }
+                    if (pressedCities.includes("boston") && pressedCities.includes("atlanta")){
+                        multipointLine.coordinates.push(bostonNewYork);
+                        multipointLine.coordinates.push(newDc);
+                        multipointLine.coordinates.push(wasAt);
+                    }
+                    if (pressedCities.includes("newyork") && pressedCities.includes("atlanta")){
+                        multipointLine.coordinates.push(newDc);
+                        multipointLine.coordinates.push(wasAt);
+                    }
+                    if (pressedCities.includes("chicago") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(chiMn);
+                    }
+                    if (pressedCities.includes("boston") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(bosChi);
+                        multipointLine.coordinates.push(chiMn);
+                    }
+                    if (pressedCities.includes("newyork") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(newChi);
+                        multipointLine.coordinates.push(chiMn);
+                    }
+                    if (pressedCities.includes("dc") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(dcChi);
+                        multipointLine.coordinates.push(chiMn);
+                    }
+                    if (pressedCities.includes("philly") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(paChi);
+                        multipointLine.coordinates.push(chiMn);
+                    }
+                    if (pressedCities.includes("atlanta") && pressedCities.includes("chicago")){
+                        multipointLine.coordinates.push(chiAt);
+                    }
+                    if (pressedCities.includes("atlanta") && pressedCities.includes("min")){
+                        multipointLine.coordinates.push(chiAt);
+                        multipointLine.coordinates.push(chiMn);
+                    }
                     console.log(multipointLine.coordinates);
                     projection(multipointLine);
 
