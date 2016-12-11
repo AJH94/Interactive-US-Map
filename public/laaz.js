@@ -285,7 +285,10 @@ var laaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Los Angeles", "Phoenix"],
+	"estimatedTime" : [5, 23],
+	"miles" : 372
 }
 
 var laAz = []

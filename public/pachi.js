@@ -618,7 +618,10 @@ var pachi = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Philadelphia", "Chicago"],
+	"estimatedTime" : [11, 28],
+	"miles" : 759
 }
 
 var paChi = [];

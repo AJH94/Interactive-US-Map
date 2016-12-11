@@ -1073,7 +1073,10 @@ var wasla = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "Los Angeles"],
+	"estimatedTime" : [39, 0],
+	"miles" : 2669
 }
 
 var wasLa = []

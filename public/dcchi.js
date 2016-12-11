@@ -784,7 +784,10 @@ var dcchi = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "Chicago"],
+	"estimatedTime" : [10, 32],
+	"miles" : 695
 }
 
 var dcChi = []

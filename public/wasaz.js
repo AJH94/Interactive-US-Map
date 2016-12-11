@@ -979,7 +979,10 @@ var wasaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "Phoenix"],
+	"estimatedTime" : [33, 0],
+	"miles" : 2300
 }
 
 var wasAz = []

@@ -595,7 +595,10 @@ var mindn ={
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Minneapolis", "Denver"],
+	"estimatedTime" : [12, 55],
+	"miles" : 915
 }
 
 var minDn = []

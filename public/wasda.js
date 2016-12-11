@@ -787,7 +787,10 @@ var wasda = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "Dallas"],
+	"estimatedTime" : [19,21],
+	"miles" : 1328
 }
 
 var wasDa = []

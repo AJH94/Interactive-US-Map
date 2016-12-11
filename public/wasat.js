@@ -525,7 +525,10 @@ var wasat = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "Atlanta"],
+	"estimatedTime" : [9, 42],
+	"miles" : 639
 }
 
 var wasAt = []

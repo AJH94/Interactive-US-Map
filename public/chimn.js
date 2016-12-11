@@ -334,7 +334,10 @@ var chimn = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Chicago", "Minneapolis"],
+	"estimatedTime" : [6, 7],
+	"miles" : 409
 }
 
 var chiMn = []

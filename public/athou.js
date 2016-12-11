@@ -523,7 +523,10 @@ var athou ={
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Atlanta", "Houston"],
+	"estimatedTime" : [11, 6],
+	"miles" : 793
 }
 
 var atHou = []

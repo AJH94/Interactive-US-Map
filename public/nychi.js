@@ -834,7 +834,10 @@ var nychi = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["New York", "Chicago"],
+	"estimatedTime" : [12, 15],
+	"miles" : 789
 }
 
 var newChi = []

@@ -548,7 +548,10 @@ var denaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Denver", "Phoenix"],
+	"estimatedTime" : [12, 37],
+	"miles" : 822
 }
 
 var denAz = []

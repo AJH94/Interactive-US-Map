@@ -639,7 +639,10 @@ var nydc = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Washington D.C", "New York"],
+	"estimatedTime" : [4, 10],
+	"miles" : 229
 }
 
 var newDc = []

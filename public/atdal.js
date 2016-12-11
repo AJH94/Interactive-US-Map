@@ -548,7 +548,10 @@ var atdal = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Atlanta", "Dallas"],
+	"estimatedTime" : [11, 13],
+	"miles" : 782
 }
 
 var atDal = []

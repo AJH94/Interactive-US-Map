@@ -429,7 +429,10 @@ var houaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Houston", "Phoenix"],
+	"estimatedTime" : [16, 39],
+	"miles" : 1176
 }
 
 var houAz = []

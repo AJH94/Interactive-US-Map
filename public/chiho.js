@@ -926,7 +926,10 @@ var chiho = {
 			    },
 			"travel_mode" : "DRIVING"
 			    }
-]
+],
+    "cityNames" : ["Chicago", "Houston"],
+    "estimatedTime" : [16, 9],
+    "miles" : 1083
 	}
 
 

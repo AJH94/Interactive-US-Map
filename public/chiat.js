@@ -764,7 +764,10 @@ var chiat = {
 },
 "travel_mode" : "DRIVING"
 }
-]
+],
+"cityNames" : ["Chicago", "Atlanta"],
+"estimatedTime" : [10, 34],
+"miles" : 719
 }
 
 var chiAt = []

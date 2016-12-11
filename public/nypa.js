@@ -523,7 +523,10 @@ var nyPa = {
 			"lng" : -75.16390779999999
 		},
 		"travel_mode" : "DRIVING"
-	}]
+	}],
+	"cityNames" : ["Philladelphia", "New York"],
+	"estimatedTime" : [2, 2],
+	"miles" : 99.9
 }
 
 var newPa = []

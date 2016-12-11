@@ -837,7 +837,10 @@ var bschi = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Boston", "Chicago"],
+	"estimatedTime" : [14, 47],
+	"miles" : 982
 }
 
 var bosChi = []

@@ -548,7 +548,10 @@ var chida = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Chicago", "Dallas"],
+	"estimatedTime" : [13, 45],
+	"miles" : 926
 }
 
 var chiDa = []

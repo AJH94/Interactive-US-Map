@@ -931,7 +931,10 @@ var wasdn = {
 },
 "travel_mode" : "DRIVING"
 }
-]
+], 
+"cityNames" : ["Washington D.C", "Denver"],
+"estimatedTime" : [24, 0],
+"miles" : 1674
 }
 
 var wasDn = [];

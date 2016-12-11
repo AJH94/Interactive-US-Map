@@ -427,7 +427,10 @@ var denla = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Denver", "Los Angeles"],
+	"estimatedTime" : [14, 32],
+	"miles" : 1016
 }
 
 var denLa = []

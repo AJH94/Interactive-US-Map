@@ -62,14 +62,16 @@
             <script src="wasla.js"></script>
             <script src="chiaz.js"></script>
             <script>
-                console.log(bosny);
-
                 //contains all the routes to and from cities
                 var multipointLine = {
                     "type" : "MultiLineString",
-                    "coordinates" : []/*[bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]*/
+                    "coordinates" : []
                 }
                 var pressedCities = [];
+                var cityNames = []; //to display city names to user
+                var routeTime = []; //to display the expected time it will take to travel by car
+                var miles = 0;
+
                 var svg = d3.select("svg");
                 var array = [[894.5904298167112,105.48290513422194],[618.6180697107831,164.5951930014994],[460.3202984929121,383.1403249363311],[854.5708175202567,154.02359484534668], [56.60659487711308,304.2365506359156],[488.3685957613856,453.15863250624943],[520.3973525968821,98.23279437830399],[317.56354129724684,213.28621034875107],[811.4657161514506,206.59056765014157],[696.8407306951635,347.0457561301166],[169.16160725691094,341.585707740727],[838.7890402686346,175.8370480134363 ]];
                 var length = array.length;
@@ -123,20 +125,20 @@
                     cities[j].exit().remove();
                 }
 
-                var bool = false;
-                var objects = [];
+                var bool = false; //two cities have not yet been selected
+                var objects = []; //keep track of the selected cities by the user so that we can reset these to blue when more than 2 are selected
                 function clicked(d) {
                     if (bool){
                         var div = document.getElementById("displayInfo");
                         div.innerHTML = "";
-                        div.hidden = true;
+                        div.hidden = true; // hide the div that shows information
                         d3.select("path").remove();
                         for (var k = 0; k < objects.length; k++){
                             var e = d3.select(objects[k]);
                             e.attr("fill", "blue");
                         }
                     
-                        bool = false;
+                        bool = false; //since everything has been cleared - reset the bool value
                         console.log(multipointLine.coordinates);
                         multipointLine.coordinates = [];
                         pressedCities = [];
@@ -198,225 +200,467 @@
                 function pressedTwoCities(){
                     if (pressedCities.includes("boston") && pressedCities.includes("newyork")){
                         multipointLine.coordinates.push(bostonNewYork);
+                        cityNames = bosny.cityNames;
+                        routeTime[0] = bosny.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1];
+                        miles = bosny.miles;
                     } 
                     if (pressedCities.includes("chicago") && pressedCities.includes("newyork")){
                         multipointLine.coordinates.push(newChi);
+                        cityNames = nychi.cityNames;
+                        routeTime[0] = nychi.estimatedTime[0];
+                        routeTime[1] = nychi.estimatedTime[1];
+                        miles = nychi.miles;
                     }
                     if (pressedCities.includes("chicago") &&
                         pressedCities.includes("boston")){
                         multipointLine.coordinates.push(bosChi);
+                        cityNames = bschi.cityNames;
+                        routeTime[0] = bschi.estimatedTime[0];
+                        routeTime[1] = bschi.estimatedTime[1];
+                        miles = bschi.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("dc")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
+                        cityNames = ["Boston", "Washington D.C"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("philly")){
                         multipointLine.coordinates.push(newPa);
+                        cityNames = nypa.cityNames;
+                        routeTime[0] = nypa.estimatedTime[0];
+                        routeTime[1] = nypa.estimatedTime[1];
+                        miles = nypa.miles;
                     }
                     if (pressedCities.includes("newyork") &&
                         pressedCities.includes("dc")){
                         multipointLine.coordinates.push(newDc);
+                        cityNames = nydc.cityNames;
+                        routeTime[0] = nydc.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1];
+                        miles = nydc.miles;
                     }
                     if (pressedCities.includes("philly") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(paChi);
+                        cityNames = pachi.cityNames;
+                        routeTime[0] = pachi.estimatedTime[0];
+                        routeTime[1] = pachi.estimatedTime[1];
+                        miles = pachi.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(dcChi);
+                        cityNames = dcchi.cityNames;
+                        routeTime[0] = dcchi.estimatedTime[0];
+                        routeTime[1] = dcchi.estimatedTime[1];
+                        miles = dcchi.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("atlanta")){
                         multipointLine.coordinates.push(wasAt);
+                        cityNames = wasat.cityNames;
+                        routeTime[0] = wasat.estimatedTime[0];
+                        routeTime[1] = wasat.estimatedTime[1];
+                        miles = wasat.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("philly")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newPa);
+                        cityNames = ["Boston", "Philadelphia"];
+                        routeTime[0] = bosny.estimatedTime[0] + nypa.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nypa.estimatedTime[1];
+                        miles = bosny.miles + nypa.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("atlanta")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAt);
+                        cityNames = ["Boston", "Atlanta"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasat.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasat.estimatedTime[1];
+                        miles = bosny.miles + nypa.miles + wasat.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("atlanta")){
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAt);
+                        cityNames = ["New York", "Atlanta"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasat.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasat.estimatedTime[1];
+                        miles = nypa.miles + wasat.miles;
                     }
                     if (pressedCities.includes("chicago") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = chimn.cityNames;
+                        routeTime[0] = chimn.estimatedTime[0];
+                        routeTime[1] = chimn.estimatedTime[1];
+                        miles = chimn.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(bosChi);
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = ["Boston", "Minneapolis"];
+                        routeTime[0] = bschi.estimatedTime[0] + chimn.estimatedTime[0];
+                        routeTime[1] = bschi.estimatedTime[1] + chimn.estimatedTime[1];
+                        miles = bschi.miles + chimn.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(newChi);
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = ["New York", "Minneapolis"];
+                        routeTime[0] = nychi.estimatedTime[0] + chimn.estimatedTime[0];
+                        routeTime[1] = nychi.estimatedTime[1] + chimn.estimatedTime[1];
+                        miles = nychi.miles + chimn.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(dcChi);
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = ["Washington D.C", "Minneapolis"];
+                        routeTime[0] = dcchi.estimatedTime[0] + chimn.estimatedTime[0];
+                        routeTime[1] = dcchi.estimatedTime[1] + chimn.estimatedTime[1];
+                        miles = dcchi.miles + chimn.miles;
                     }
                     if (pressedCities.includes("philly") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(paChi);
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = ["Philadelphia", "Minneapolis"];
+                        routeTime[0] = pachi.estimatedTime[0] + chimn.estimatedTime[0];
+                        routeTime[1] = pachi.estimatedTime[1] + chimn.estimatedTime[1];
+                        miles = pachi.miles + chimn.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(chiAt);
+                        cityNames = chiat.cityNames;
+                        routeTime[0] = chiat.estimatedTime[0];
+                        routeTime[1] = chiat.estimatedTime[1];
+                        miles = chiat.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("min")){
                         multipointLine.coordinates.push(chiAt);
                         multipointLine.coordinates.push(chiMn);
+                        cityNames = ["Atlanta", "Minneapolis"];
+                        routeTime[0] = chiat.estimatedTime[0] + chimn.estimatedTime[0];
+                        routeTime[1] = chiat.estimatedTime[1] + chimn.estimatedTime[1];
+                        miles = chiat.miles + chimn.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("dallas")){
                         multipointLine.coordinates.push(atDal);
+                        cityNames = atdal.cityNames;
+                        routeTime[0] = atdal.estimatedTime[0];
+                        routeTime[1] = atdal.estimatedTime[1];
+                        miles = atdal.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(atHou);
+                        cityNames = athou.cityNames;
+                        routeTime[0] = athou.estimatedTime[0];
+                        routeTime[1] = athou.estimatedTime[1];
+                        miles = athou.miles;
                     }
                     if (pressedCities.includes("dallas") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(dalHo);
+                        cityNames = dalho.cityNames;
+                        routeTime[0] = dalho.estimatedTime[0];
+                        routeTime[1] = dalho.estimatedTime[1];
+                        miles = dalho.miles;
                     }
                     if (pressedCities.includes("dallas") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(dalDn);
+                        cityNames = daldn.cityNames;
+                        routeTime[0] = daldn.estimatedTime[0];
+                        routeTime[1] = daldn.estimatedTime[1];
+                        miles = daldn.miles;
                     }
                     if (pressedCities.includes("houston") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(dalHo);
                         multipointLine.coordinates.push(dalDn);
+                        cityNames = ["Houston", "Denver"];
+                        routeTime[0] = dalho.estimatedTime[0] + daldn.estimatedTime[0];
+                        routeTime[1] = dalho.estimatedTime[1] + daldn.estimatedTime[1];
+                        miles = daldn.miles + dalho.miles;
                     }
                     if (pressedCities.includes("denver") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(chiDn);
+                        cityNames = chidn.cityNames;
+                        routeTime[0] = chidn.estimatedTime[0];
+                        routeTime[1] = chidn.estimatedTime[1];
+                        miles = chidn.miles;
                     }
                     if (pressedCities.includes("min") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(minDn);
+                        cityNames = mindn.cityNames;
+                        routeTime[0] = mindn.estimatedTime[0];
+                        routeTime[1] = mindn.estimatedTime[1];
+                        miles = mindn.miles;
                     }
                     if (pressedCities.includes("dallas") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(chiDa);
+                        cityNames = chida.cityNames;
+                        routeTime[0] = chida.estimatedTime[0];
+                        routeTime[1] = chida.estimatedTime[1];
+                        miles = chida.miles;
                     }
                     if (pressedCities.includes("houston") && pressedCities.includes("chicago")){
                         multipointLine.coordinates.push(chiHo);
+                        cityNames = chiho.cityNames;
+                        routeTime[0] = chiho.estimatedTime[0];
+                        routeTime[1] = chiho.estimatedTime[1];
+                        miles = chiho.miles;
                     }
                     if (pressedCities.includes("chicago") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(chiDn);
                         multipointLine.coordinates.push(denLa);
+                        cityNames = ["Chicago", "Los Angeles"];
+                        routeTime[0] = chidn.estimatedTime[0] + denla.estimatedTime[0];
+                        routeTime[1] = chidn.estimatedTime[1] + denla.estimatedTime[1];
+                        miles = chidn.miles + denla.miles;
                     }
                     if (pressedCities.includes("denver") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(denLa);
+                        cityNames = denla.cityNames;
+                        routeTime[0] = denla.estimatedTime[0];
+                        routeTime[1] = denla.estimatedTime[1];
+                        miles = denla.miles;
                     }
                     if (pressedCities.includes("min") && pressedCities.includes("dallas")){
                         multipointLine.coordinates.push(minDa);
+                        cityNames = minda.cityNames;
+                        routeTime[0] = minda.estimatedTime[0];
+                        routeTime[1] = minda.estimatedTime[1];
+                        miles = minda.miles;
                     }
                     if (pressedCities.includes("min") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(dalHo);
                         multipointLine.coordinates.push(minDa);
+                        cityNames = ["Minneapolis" , "Houston"];
+                        routeTime[0] = dalho.estimatedTime[0] + minda.estimatedTime[0];
+                        routeTime[1] = dalho.estimatedTime[1] + minda.estimatedTime[1];
+                        miles = minda.miles + dalho.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAt);
                         multipointLine.coordinates.push(atHou);
+                        cityNames = ["Boston", "Houston"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasat.estimatedTime[0] + athou.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasat.estimatedTime[1] + athou.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles + wasat.miles + athou.miles; 
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAt);
                         multipointLine.coordinates.push(atHou);
+
+                        cityNames = ["New York", "Houston"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasat.estimatedTime[0] + athou.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasat.estimatedTime[1] + athou.estimatedTime[1];
+                        miles = nydc.miles + wasat.miles + athou.miles; 
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("houston")){
                         multipointLine.coordinates.push(wasAt);
                         multipointLine.coordinates.push(atHou);
+
+                        cityNames = ["Washington D.C", "Houston"];
+                        routeTime[0] = wasat.estimatedTime[0] + athou.estimatedTime[0];
+                        routeTime[1] = wasat.estimatedTime[1] + athou.estimatedTime[1];
+                        miles = wasat.miles + athou.miles; 
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("dallas")){
                         multipointLine.coordinates.push(wasDa);
+                        cityNames = wasda.cityNames;
+                        routeTime[0] = wasda.estimatedTime[0];
+                        routeTime[1] = wasda.estimatedTime[1];
+                        miles = wasda.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(wasDn);
+                        cityNames = wasdn.cityNames;
+                        routeTime[0] = wasdn.estimatedTime[0];
+                        routeTime[1] = wasdn.estimatedTime[1];
+                        miles = wasdn.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(wasAz);
+                        cityNames = wasaz.cityNames;
+                        routeTime[0] = wasaz.estimatedTime[0];
+                        routeTime[1] = wasaz.estimatedTime[1];
+                        miles = wasaz.miles;
                     }
                     if (pressedCities.includes("dc") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(wasLa);
+                        cityNames = wasla.cityNames;
+                        routeTime[0] = wasla.estimatedTime[0];
+                        routeTime[1] = wasla.estimatedTime[1];
+                        miles = wasla.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasDn);
+                        cityNames = ["Boston", "Denver"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasdn.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasdn.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles + wasdn.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasLa);
+                        cityNames = ["Boston", "Los Angeles"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasla.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasla.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles + wasla.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAz);
+                        cityNames = ["Boston", "Phoenix"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasaz.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasaz.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles + wasaz.miles;
                     }
                     if (pressedCities.includes("boston") && pressedCities.includes("dallas")){
                         multipointLine.coordinates.push(bostonNewYork);
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasDa);
+                        cityNames = ["Boston", "Dallas"];
+                        routeTime[0] = bosny.estimatedTime[0] + nydc.estimatedTime[0] + wasda.estimatedTime[0];
+                        routeTime[1] = bosny.estimatedTime[1] + nydc.estimatedTime[1] + wasda.estimatedTime[1];
+                        miles = bosny.miles + nydc.miles + wasda.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("dallas")){
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasDa);
+                        cityNames = ["New York", "Dallas"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasda.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasda.estimatedTime[1];
+                        miles = nydc.miles + wasda.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasAz);
+                        cityNames = ["New York", "Phoenix"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasaz.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasaz.estimatedTime[1];
+                        miles = nydc.miles + wasaz.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(wasLa);
                         multipointLine.coordinates.push(newDc);
+                        cityNames = ["New York", "Los Angeles"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasla.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasla.estimatedTime[1];
+                        miles = nydc.miles + wasla.miles;
                     }
                     if (pressedCities.includes("newyork") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(newDc);
                         multipointLine.coordinates.push(wasDn);
+                        cityNames = ["New York", "Denver"];
+                        routeTime[0] = nydc.estimatedTime[0] + wasdn.estimatedTime[0];
+                        routeTime[1] = nydc.estimatedTime[1] + wasdn.estimatedTime[1];
+                        miles = nydc.miles + wasdn.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(atDal);
                         multipointLine.coordinates.push(dalAz);
+                        cityNames = ["Atlanta", "Phoenix"];
+                        routeTime[0] = atdal.estimatedTime[0] + dalaz.estimatedTime[0];
+                        routeTime[1] = atdal.estimatedTime[1] + dalaz.estimatedTime[1];
+                        miles = atdal.miles + dalaz.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(atDal);
                         multipointLine.coordinates.push(dalAz);
                         multipointLine.coordinates.push(laAz);
+                        cityNames = ["Atlanta", "Los Angeles"];
+                        routeTime[0] = laaz.estimatedTime[0] + atdal.estimatedTime[0] + dalaz.estimatedTime[0];
+                        routeTime[1] = laaz.estimatedTime[1] + atdal.estimatedTime[1] + dalaz.estimatedTime[1];
+                        miles = atdal.miles + dalaz.miles + laaz.miles;
                     }
                     if (pressedCities.includes("atlanta") && pressedCities.includes("denver")){
                         multipointLine.coordinates.push(atDal);
                         multipointLine.coordinates.push(dalDn);
+                        cityNames = ["Atlanta", "Denver"];
+                        routeTime[0] = atdal.estimatedTime[0] + daldn.estimatedTime[0];
+                        routeTime[1] = atdal.estimatedTime[1] + daldn.estimatedTime[1];
+                        miles = atdal.miles + daldn.miles;
                     }
                     if (pressedCities.includes("dallas") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(dalAz);
+                        cityNames = dalaz.cityNames;
+                        routeTime[0] = dalaz.estimatedTime[0];
+                        routeTime[1] = dalaz.estimatedTime[1];
+                        miles = dalaz.miles;
                     }
                     if (pressedCities.includes("houston") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(houAz);
+                        cityNames = houaz.cityNames;
+                        routeTime[0] = houaz.estimatedTime[0];
+                        routeTime[1] = houaz.estimatedTime[1];
+                        miles = houaz.miles;
                     }
                     if (pressedCities.includes("dallas") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(dalAz);
                         multipointLine.coordinates.push(laAz);
+                        cityNames = ["Dallas", "Los Angeles"];
+                        routeTime[0] = laaz.estimatedTime[0] + dalaz.estimatedTime[0];
+                        routeTime[1] = laaz.estimatedTime[1] + dalaz.estimatedTime[1];
+                        miles = dalaz.miles + laaz.miles;
                     }
                     if (pressedCities.includes("houston") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(houAz);
                         multipointLine.coordinates.push(laAz);
+                        cityNames = ["Houston", "Los Angeles"];
+                        routeTime[0] = laaz.estimatedTime[0] + houaz.estimatedTime[0];
+                        routeTime[1] = laaz.estimatedTime[1] + houaz.estimatedTime[1];
+                        miles = houaz.miles + laaz.miles;
                     }
                     if (pressedCities.includes("denver") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(denAz);
+                        cityNames = denaz.cityNames;
+                        routeTime[0] = denaz.estimatedTime[0];
+                        routeTime[1] = denaz.estimatedTime[1];
+                        miles = denaz.miles;
                     }
                     if (pressedCities.includes("denver") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(denLa);
+                        cityNames = denla.cityNames;
+                        routeTime[0] = denla.estimatedTime[0];
+                        routeTime[1] = denla.estimatedTime[1];
+                        miles = denla.miles;
                     }
                     if (pressedCities.includes("chicago") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(chiAz);
+                        cityNames = chiaz.cityNames;
+                        routeTime[0] = chiaz.estimatedTime[0];
+                        routeTime[1] = chiaz.estimatedTime[1];
+                        miles = chiaz.miles;
                     }
                     if (pressedCities.includes("chicago") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(chiDn);
                         multipointLine.coordinates.push(denLa);
+                        cityNames = ["Chicago", "Los Angeles"];
+                        routeTime[0] = chidn.estimatedTime[0] + denla.estimatedTime[0];
+                        routeTime[1] = chidn.estimatedTime[1] + denla.estimatedTime[1];
+                        miles = denla.miles + chidn.miles; 
                     }
                     if (pressedCities.includes("min") && pressedCities.includes("la")){
                         multipointLine.coordinates.push(minDn);
                         multipointLine.coordinates.push(denLa);
+                        cityNames = ["Minneapolis", "Los Angeles"];
+                        routeTime[0] = mindn.estimatedTime[0] + denla.estimatedTime[0];
+                        routeTime[1] = mindn.estimatedTime[1] + denla.estimatedTime[1];
+                        miles = denla.miles + mindn.miles; 
                     }
                     if (pressedCities.includes("min") && pressedCities.includes("az")){
                         multipointLine.coordinates.push(minDn);
                         multipointLine.coordinates.push(denAz);
+                        cityNames = ["Minneapolis", "Phoenix"];
+                        routeTime[0] = mindn.estimatedTime[0] + denaz.estimatedTime[0];
+                        routeTime[1] = mindn.estimatedTime[1] + denaz.estimatedTime[1];
+                        miles = denaz.miles + mindn.miles; 
                     }
                     console.log(multipointLine.coordinates);
                     projection(multipointLine);
@@ -445,7 +689,7 @@
                     console.log("the line was selected");
 
                     var div = document.getElementById("displayInfo");
-                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Cities:" + pressedCities[0] + ", " + pressedCities[1] + "</li></ul>";
+                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Cities: " + cityNames[0] + ", " + cityNames[1] + "</li><li>Estimated Driving Time: " + routeTime[0] + " hours and " + routeTime[1] +" minutes </li><li>Miles: " + miles  + "</ul>";
                     div.hidden = false;
 
                     

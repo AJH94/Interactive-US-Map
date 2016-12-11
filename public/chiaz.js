@@ -788,7 +788,10 @@ var chiaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Chicago", "Phoenix"],
+	"estimatedTime" : [26, 0],
+	"miles" : 1753
 }
 
 var chiAz = []

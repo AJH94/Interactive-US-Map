@@ -855,7 +855,11 @@
             "lng" : -74.0072435
          },
          "travel_mode" : "DRIVING"
-      }]
+      }],
+
+      "cityNames" : ["Boston", "New York"],
+      "estimatedTime" : [3, 53],
+      "miles" : 216
 }
 
 var bostonNewYork = []

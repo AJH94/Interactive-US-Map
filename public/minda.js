@@ -641,7 +641,10 @@ var minda = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Minneapolis", "Dallas"],
+	"estimatedTime" : [14, 2],
+	"miles" : 942
 }
 
 var minDa = []

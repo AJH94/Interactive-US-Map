@@ -525,7 +525,10 @@ var chidn = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Chicago", "Denver"],
+	"estimatedTime" : [14, 30],
+	"miles" : 1004
 }
 
 var chiDn = []

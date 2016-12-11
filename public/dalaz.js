@@ -454,7 +454,10 @@ var dalaz = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Phoenix", "Dallas"],
+	"estimatedTime" : [15, 8],
+	"miles" : 1065
 }
 
 var dalAz = []

@@ -332,7 +332,10 @@ var dalho = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Houston", "Dallas"],
+	"estimatedTime" : [3, 18],
+	"miles" : 242
 }
 
 var dalHo = [] 

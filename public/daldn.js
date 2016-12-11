@@ -807,7 +807,10 @@ var daldn = {
 		},
 		"travel_mode" : "DRIVING"
 	}
-	]
+	],
+	"cityNames" : ["Denver", "Dallas"],
+	"estimatedTime" : [11, 51],
+	"miles" : 794
 }
 
 var dalDn = []
