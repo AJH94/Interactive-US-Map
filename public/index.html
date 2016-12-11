@@ -55,6 +55,7 @@
             <script>
                 console.log(bosny);
 
+                //contains all the routes to and from cities
                 var multipointLine = {
                     "type" : "MultiLineString",
                     "coordinates" : [bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]
@@ -69,16 +70,17 @@
                 .attr("cx", function(d, i) { return i * 100 + 30; })
                 .attr("r", function(d) { return Math.sqrt(d); });
 
+                //create a scale and tanslation for the map
                 var albersProjection = d3.geo.albersUsa()
                 .scale(1325)
                 .translate([930/2, 490/2]);
 
+                //allows for easy pasting of routes to the svg container
                  var geoPath = d3.geo.path().projection(albersProjection);
 
+
+                //add all routes to the svg container
                  var lineStringPath1 = svg.append("path").attr("d", geoPath(multipointLine)).style("stroke", "red").style("fill", "none");
-
-
-
 
         </script>
     </div>
