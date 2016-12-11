@@ -20,43 +20,44 @@
                 <circle cx="488.3685957613856" cy="453.15863250624943" r="10"></circle>
                 <circle cx="520.3973525968821" cy="98.23279437830399" r="10"></circle>
                 <circle cx="317.56354129724684" cy="213.28621034875107" r="10"></circle>
-                <circle cx="3.6361142776902966" cy="200.59776219087087" r="10"></circle>
                 <circle cx="811.4657161514506" cy="206.59056765014157" r="10"></circle>
                 <circle cx="696.8407306951635" cy="347.0457561301166" r="10"></circle>
                 <circle cx="169.16160725691094" cy="341.585707740727" r="10"></circle>
                 <circle cx="838.7890402686346" cy="175.8370480134363" r="10"></circle>
-
-                <!--Route between boston and new york -->
-                <!--<path d="M 894.5904298167112 105.48290513422194
-                        L 891.5695857256856 105.61447130321483
-                        L 885.2375769507817 110.00039728403806
-                        L 878.8523618288323 115.1834378868408
-                        L 877.8593065608684 118.47973177353128
-                        L 874.1286638427828 122.4750820272867
-                        L 872.0867202318727 124.7605917198888
-                        L 869.3112022863833 134.67600315606956
-                        L 864.2914674028634 141.63556672705465
-                        L 858.3446863803745 146.68722393708924
-                        L 855.2248110415078 152.47128900329017
-                        L 854.5708175202567 154.02359484534668
-                        L 618.6180697107831 164.5951930014994
-                        L 460.3202984929121 383.1403249363311"
-                        stroke="red" stroke-width="2" fill="none" />-->
                 <circle cx="30" cy="300" r="0"></circle>
             </svg>
             <script src="https://d3js.org/d3.v3.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
             <script src="bosny.js"></script>
             <script src="nypa.js"></script>
+            <script src="nydc.js"></script>
+            <script src="bschi.js"></script>
+            <script src="nychi.js"></script>
+            <script src="dcchi.js"></script>
+            <script src="pachi.js"></script>
+            <script src="chiat.js"></script>
+            <script src="wasat.js"></script>
+            <script src="athou.js"></script>
+            <script src="atdal.js"></script>
+            <script src="dalho.js"></script>
+            <script src="chiho.js"></script>
+            <script src="chida.js"></script>
+            <script src="minda.js"></script>
+            <script src="chimn.js"></script>
+            <script src="chidn.js"></script>
+            <script src="daldn.js"></script>
+            <script src="mindn.js"></script>
+            <script src="denaz.js"></script>
+            <script src="dalaz.js"></script>
+            <script src="houaz.js"></script>
+            <script src="laaz.js"></script>
+            <script src="denla.js"></script>
             <script>
                 console.log(bosny);
-                /*var newYorkPhilly = {
-                    "type" : 
-                }*/
 
                 var multipointLine = {
                     "type" : "MultiLineString",
-                    "coordinates" : [bostonNewYork, newPa]
+                    "coordinates" : [bostonNewYork, newPa, newDc, bosChi, newChi, dcChi, paChi, chiAt, wasAt, atHou, atDal, dalHo, chiHo, chiDa, minDa, chiMn, chiDn, dalDn, minDn, denAz, dalAz, houAz, laAz, denLa]
                 }
                 var svg = d3.select("svg");
 
