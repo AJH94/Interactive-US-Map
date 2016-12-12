@@ -201,6 +201,16 @@
                 }
 
                 function pressedTwoCities(){
+                	var req = new XMLHttpRequest();
+                	req.addEventListener("load", function() {
+                		console.log(req.response);
+                		bool = true;
+                	}) 
+                	req.open("GET", "/route?beg="+pressedCities[0]+"&end="+pressedCities[1]);
+                    req.send();
+                }
+/*
+                function pressedTwoCities(){
                     //the next if statements get the route and information about the route
                     if (pressedCities.includes("boston") && pressedCities.includes("newyork")){
                         multipointLine.coordinates.push(bostonNewYork);
@@ -701,7 +711,7 @@
 
                     bool = true; //if we got here, this means that two cities were selected, and if another city is selected after this, we should reset everything
                 
-                }
+                }*/
 
                 function projection(line){
                     //create a scale and tanslation for the map
