@@ -1,7 +1,7 @@
-#country {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center; background-image: url("US_Map.png"); background-size: 1000px 600px;}
+#country {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center; background-image: url("US_Map.png"); background-size: 1000px 600px; float: left;}
 
 #city {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center;}
 
 #boston {fill: red;}
 
-#displayInfo {display:table; margin: auto;}
+#displayInfo {display:table; margin: auto; float: right;}

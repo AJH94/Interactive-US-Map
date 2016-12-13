@@ -753,13 +753,92 @@
                 }
                 /**TODO - Add additional information at our discretion */
 
+                var cinfo = [];
+                function getCityInfo(value){
+                    //switch statement to find which city was selected
+                    switch (value){
+                        case 894.5904541015625:
+                            cinfo[0] = "Boston Children's Museum, Adams National Historical Park";
+                            cinfo[1] = "Boston Marriott Copley Place, MidTown Hotel";
+                            cinfo[2] = "Fire + Ice Restaurants, Rocco's Cucina & Bar";
+                            break;
+                        case 618.6180419921875:
+                            cinfo[0] = "The Art Institute of Chicago, The Field Museum";
+                            cinfo[1] = "The Guesthouse Hotel, The Langham";
+                            cinfo[2] = "Alinea, Avec";
+                            break;
+                        case 460.3203125:
+                            cinfo[0] = "Dallas Arboretum & Botanical Gardens, Morton H. Meyerson Symphony Center";
+                            cinfo[1] = "Grand Hyatt DFW, Hotel ZaZa Dallas";
+                            cinfo[2] = "Jimmy's Food Store, Kenny's Wood Fired Grill";
+                            break;
+                        case 854.57080078125:
+                            cinfo[0] = "Central Park, The Metropolitan Museum of Art";
+                            cinfo[1] = "Casablanca Hotel Times Square, Crosby Street Hotel";
+                            cinfo[2] = "Daniel, Per Se";
+                            break;
+                        case 56.60659408569336:
+                            cinfo[0] = "Universal Studios Hollywood General Admission Ticket, The Getty Center";
+                            cinfo[1] = "Hotel Bel-Air, Magic Castle Hotel";
+                            cinfo[2] = "Providence, Brent's Delicatessen & Restaurant";
+                            break;
+                        case 488.36859130859375:
+                            cinfo[0] = "The Houston Museum of Natural Science, Houston Zoo";
+                            cinfo[1] = "The Lancaster, Hotel Granduca Houston";
+                            cinfo[2] = "Chama Gaucha Brazilian Steakhouse, Peli Peli Galleria";
+                            break;
+                        case 520.3973388671875:
+                            cinfo[0] = "Target Field, Guthrie Theater";
+                            cinfo[1] = "Kimpton Grand Hotel Minneapolis, Hampton Inn & Suites Minneapolis/Downtown";
+                            cinfo[2] = "Capital Grille, 112 Eatery";
+                            break;
+                        case 317.56353759765625:
+                            cinfo[0] = "Denver Botanic Gardens, Coors Field";
+                            cinfo[1] = "The Crawford Hotel, Four Seasons Hotel Denver";
+                            cinfo[2] = "Root Down, Racca's Pizzeria Napoletana";
+                            break;
+                        case 811.4656982421875:
+                            cinfo[0] = "Lincoln Memorial, Smithsonian National Air and Space Museum";
+                            cinfo[1] = "The Avery Georgetown, Four Seasons Hotel Washington, DC";
+                            cinfo[2] = "Ambar Capitol Hill, The Capital Grille";
+                            break;
+                        case 696.8407592773438:
+                            cinfo[0] = "Georgia Aquarium, Fox Theatre";
+                            cinfo[1] = "Loews Atlanta Hotel, The St. Regis Atlanta";
+                            cinfo[2] = "Bone's Restaurant, Capital Grille";
+                            break;
+                        case 169.16160583496094:
+                            cinfo[0] = "Desert Botanical Garden, Heard Museum";
+                            cinfo[1] = "Royal Palms Resort and Spa, Drury Inn & Suites Phoenix Happy Valley";
+                            cinfo[2] = "Little Miss Bbq, Rusconi's American Kitchen";
+                            break;
+                        case 838.7890625:
+                            cinfo[0] = "Independence Hall, Philadelphia Museum of Art";
+                            cinfo[1] = "The Rittenhouse Hotel, Kimpton Hotel Monaco Philadelphia";
+                            cinfo[2] = "Ristorante Pesto, Zahav";
+                            break;
+                        default:
+                            console.log("problem"); //if we got here, something is seriously wrong
+                        }
+                }
+
                 function lineSelected(d){
                     var c = d3.select(this);
                     console.log("the line was selected");
 
                     //put the information about the route into a div below the map
+
+                    var v = objects[0].cx.animVal.value;
+                    getCityInfo(v);
+
                     var div = document.getElementById("displayInfo");
                     div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Start Location: " + cityNames[0] + "</li><li>End Location: " + cityNames[1] + "</li><li>Estimated Driving Time: " + estimatedTime + "</li><li>Distance: " + miles  + "</ul>";
+                    div.innerHTML += "<br>" + "<h2 style=\"align=center\">First City: " + cityNames[0] + "</h2>" + "<ul><li>Things to do: " + cinfo[0] + "</li>" + "<li>Hotels: "+ cinfo[1] + "</li>" + "<li>Popular Restaurants: "+ cinfo[2] + "</li></ul>";
+
+                    var v = objects[1].cx.animVal.value;
+                    getCityInfo(v);
+
+                    div.innerHTML += "<br>" + "<h2 style=\"align=center\">Second City: " + cityNames[1] + "</h2>" + "<ul><li>Things to do: " + cinfo[0] + "</li>" + "<li>Hotels: "+ cinfo[1] + "</li>" + "<li>Popular Restaurants: "+ cinfo[2] + "</li></ul>";;
                     div.hidden = false;      
                 }
         </script>
