@@ -144,6 +144,7 @@
                         console.log(multipointLine.coordinates);
                         multipointLine.coordinates = []; //this isn't really needed, but clear out the info in the route
                         pressedCities = []; //this is needed - clear out the cities that were pressed
+                        objects = [];
                     }
                     objects.push(this); //put this object into the list since we can't assign ids 
                     var c = d3.select(this);
