@@ -68,8 +68,8 @@
                 }
                 var pressedCities = []; //keeps track of the cities that were pressed
                 var cityNames = []; //to display city names to user
-                var routeTime = []; //to display the expected time it will take to travel by car
-                var miles = 0; //to display the number of miles in between a route for the user
+                var estimatedTime; //to display the expected time it will take to travel by car
+                var miles; //to display the number of miles in between a route for the user
                 var file; //this could prove useful to have if we want to add additional information
 
                 var svg = d3.select("svg");
@@ -172,13 +172,13 @@
                             pressedCities.push("newyork");
                             break;
                         case 56.60659408569336:
-                            pressedCities.push("la");
+                            pressedCities.push("losangeles");
                             break;
                         case 488.36859130859375:
-                            pressedCities.push("houston");
+                            pressedCities.push("Houston");
                             break;
                         case 520.3973388671875:
-                            pressedCities.push("min");
+                            pressedCities.push("Minneapolis");
                             break;
                         case 317.56353759765625:
                             pressedCities.push("denver");
@@ -190,7 +190,7 @@
                             pressedCities.push("atlanta");
                             break;
                         case 169.16160583496094:
-                            pressedCities.push("az");
+                            pressedCities.push("phoenix");
                             break;
                         case 838.7890625:
                             pressedCities.push("philly");
@@ -204,12 +204,21 @@
                 	var req = new XMLHttpRequest();
                 	req.addEventListener("load", function() {
                 		console.log(req.response);
+                        var request = JSON.parse(req.response);
+                        var steps = request.routes[0].legs[0].steps; //coordinates
+                        makeLine(steps); //convert coordinates to a line
+                        cityNames[0] = request.routes[0].legs[0].start_address;
+                        cityNames[1] = request.routes[0].legs[0].end_address;
+                        miles = request.routes[0].legs[0].distance.text;
+                        estimatedTime = request.routes[0].legs[0].duration.text;
                 		bool = true;
                 	}) 
                 	req.open("GET", "/route?beg="+pressedCities[0]+"&end="+pressedCities[1]);
                     req.send();
                 }
-/*
+                
+                //worst comes to worst - we have manually data that we can rely on
+                /*
                 function pressedTwoCities(){
                     //the next if statements get the route and information about the route
                     if (pressedCities.includes("boston") && pressedCities.includes("newyork")){
@@ -713,6 +722,22 @@
                 
                 }*/
 
+                function makeLine(response){
+                    console.log(response);
+                    var coordinates = []
+
+                    var array = [response[0].start_location.lng , response[0].start_location.lat];
+                    coordinates.push(array);
+                    for (var i = 0; i < response.length; i++){
+                        var arr = [response[i].end_location.lng, response[i].end_location.lat];
+                        coordinates.push(arr);
+                    }
+                    console.log(coordinates);
+                    multipointLine.coordinates.push(coordinates);
+                    projection(multipointLine);
+
+                }
+
                 function projection(line){
                     //create a scale and tanslation for the map
                     var albersProjection = d3.geo.albersUsa()
@@ -724,7 +749,7 @@
 
 
                     //add all routes to the svg container
-                    var lineStringPath1 = svg.append("path").attr("d", geoPath(line)).style("stroke", "red").style("fill", "none").on("click", lineSelected);
+                    var lineStringPath1 = svg.append("path").attr("d", geoPath(line)).style("stroke", "red").style("fill", "none").on("mouseover", lineSelected);
                 }
                 /**TODO - Add additional information at our discretion */
 
@@ -734,10 +759,8 @@
 
                     //put the information about the route into a div below the map
                     var div = document.getElementById("displayInfo");
-                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Cities: " + cityNames[0] + ", " + cityNames[1] + "</li><li>Estimated Driving Time: " + routeTime[0] + " hours and " + routeTime[1] +" minutes </li><li>Miles: " + miles  + "</ul>";
-                    div.hidden = false;
-
-                    
+                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Start Location: " + cityNames[0] + "</li><li>End Location: " + cityNames[1] + "</li><li>Estimated Driving Time: " + estimatedTime + "</li><li>Distance: " + miles  + "</ul>";
+                    div.hidden = false;      
                 }
         </script>
 </html>
