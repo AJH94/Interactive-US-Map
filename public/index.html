@@ -328,8 +328,8 @@
 
                   if( objects[1].cx.animVal.value != null ){
 
-                    localStorage.setItem('c1', objects[0]);
-                    localStorage.setItem('c2', objects[1]);
+                    localStorage.setItem('c1', JSON.stringify(objects[0]));
+                    localStorage.setItem('c2', JSON.stringify(objects[1]));
 
                   }
 
@@ -337,13 +337,15 @@
 
                 function rload(){
 
-                  c1 = localStorage.getItem('c1');
-                  c2 = localStorage.getItem('c2');
+                  c1 = JSON.parse(localStorage.getItem('c1'));
+                  c2 = JSON.parse(localStorage.getItem('c2'));
 
                   if( c1 != null && c2 != null ){
 
-                    objects[0] = c1;
-                    objects[1] = c2;
+                    objects = [];
+
+                    objects.push(c1);
+                    objects.push(c2);
 
                     pressedCities = [];
 
