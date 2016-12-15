@@ -1,3 +1,16 @@
+h1 {
+    font-family: 'Lora', serif;
+    font-size: 90px;
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size:40px;
+    color: white;
+    text-align: center;
+}
 #page {background-color: #6da3ba;}
 
 #country {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center; background-image: url("US_Map.png"); background-size: 1000px 600px; float: left;}
