@@ -27,12 +27,15 @@
         </div>
     </div>
     <div id = "displayInfo" hidden></div>
-    <form onsubmit="return false;">
-      <button type="submit" onclick="rsave();">Save Favorite Route</button>
-    </form>
-    <form onsubmit="return false;">
-      <button type="submit" onclick="rload();">Load Favorite Route</button>
-    </form>
+    <div id = "buttons">
+        <form onsubmit="return false;">
+          <button type="submit" onclick="rsave();">Save Favorite Route</button>
+        </form>
+        <br>
+        <form onsubmit="return false;">
+          <button type="submit" onclick="rload();">Load Favorite Route</button>
+        </form>
+    </div>
   </body>
             <script src="https://d3js.org/d3.v3.min.js"></script> <!--d3-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <!--jquery-->

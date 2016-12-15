@@ -5,3 +5,5 @@
 #boston {fill: red;}
 
 #displayInfo {display:table; margin: auto; float: right;}
+
+#buttons {position: absolute; bottom: 30px; left: 50px;}
