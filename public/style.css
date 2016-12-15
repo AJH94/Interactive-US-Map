@@ -13,12 +13,12 @@ h2 {
 }
 #page {background-color: #6da3ba;}
 
-#country {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center; background-image: url("US_Map.png"); background-size: 1000px 600px; float: left;}
+#country {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center; background-image: url("US_Map.png"); background-size: 1000px 600px; margin: auto}
 
 #city {height: 600px; width: 1000px; display: flex; align-items: center; justify-content: center;}
 
 #boston {fill: red;}
 
-#displayInfo {display:table; margin: auto; float: right; background-color: #f1cb46;}
+#displayInfo {display:table; margin: auto; background-color: #f1cb46;}
 
 #buttons {position: absolute; bottom: 30px; left: 50px;}
