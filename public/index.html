@@ -328,8 +328,12 @@
 
                   if( objects[1].cx.animVal.value != null ){
 
-                    localStorage.setItem('c1', JSON.stringify(objects[0]));
-                    localStorage.setItem('c2', JSON.stringify(objects[1]));
+                    localStorage.setItem('c1', JSON.stringify(objects[0].cx.animVal.value));
+                    localStorage.setItem('c2', JSON.stringify(objects[1].cx.animVal.value));
+                    localStorage.setItem('cname1', JSON.stringify(cityNames[0]));
+                    localStorage.setItem('cname2', JSON.stringify(cityNames[1]));
+                    localStorage.setItem('et', JSON.stringify(estimatedTime));
+                    localStorage.setItem('m', JSON.stringify(miles));
 
                   }
 
@@ -339,23 +343,44 @@
 
                   c1 = JSON.parse(localStorage.getItem('c1'));
                   c2 = JSON.parse(localStorage.getItem('c2'));
+                  cname1 = JSON.parse(localStorage.getItem('cname1'));
+                  cname2 = JSON.parse(localStorage.getItem('cname2'));
+                  et = JSON.parse(localStorage.getItem('et'));
+                  m = JSON.parse(localStorage.getItem('m'));
 
                   if( c1 != null && c2 != null ){
 
+                    var div = document.getElementById("displayInfo");
+                    div.innerHTML = ""; //clear the content in the div - not necessarily needed
+                    div.hidden = true; // hide the div that shows information
+                    d3.select("path").remove();
+                    for (var k = 0; k < objects.length; k++){
+                            var e = d3.select(objects[k]);
+                            e.attr("fill", "blue");
+                    }
+                    
+                    bool = false; //since everything has been cleared - reset the bool value
+                    console.log(multipointLine.coordinates);
+                    multipointLine.coordinates = [];
+                    pressedCities = [];
                     objects = [];
 
-                    objects.push(c1);
-                    objects.push(c2);
-
-                    pressedCities = [];
-
-                    value1 = objects[0].cx.animVal.value;
-                    value2 = objects[1].cx.animVal.value;
-
-                    addCityToList(value1)
-                    addCityToList(value2)
+                    addCityToList(c1)
+                    addCityToList(c2)
 
                     pressedTwoCities();
+
+                    var div = document.getElementById("displayInfo");
+                    div.innerHTML = "<h1 style=\"align=center\">Route Information</h1><ul><li>Start Location: " + cname1 + "</li><li>End Location: " + cname2 + "</li><li>Estimated Driving Time: " + et + "</li><li>Distance: " + m  + "</ul>";
+
+                    getCityInfo(c1);
+
+                    div.innerHTML += "<br>" + "<h2 style=\"align=center\">First City: " + cname1 + "</h2>" + "<ul><li>Things to do: " + cinfo[0] + "</li>" + "<li>Hotels: "+ cinfo[1] + "</li>" + "<li>Popular Restaurants: "+ cinfo[2] + "</li></ul>";
+
+                    getCityInfo(c2);
+
+                    div.innerHTML += "<br>" + "<h2 style=\"align=center\">Second City: " + cname2 + "</h2>" + "<ul><li>Things to do: " + cinfo[0] + "</li>" + "<li>Hotels: "+ cinfo[1] + "</li>" + "<li>Popular Restaurants: "+ cinfo[2] + "</li></ul>";
+                    div.hidden = false;
 
                   }
 
